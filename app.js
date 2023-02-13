@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 80
-const homeRouter = require('./route/homeRouter.js')
+const homeRouter = require('./routes/homeRouter.js')
 const cors = require("cors");
 const corsOptions = {
   origin: '*',

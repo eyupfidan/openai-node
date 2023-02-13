@@ -1,17 +1,10 @@
-const express = require('express')
-const router = express.Router()
 const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config()
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-router.use((req, res, next) => {
-    console.log('Time: ', Date.now())
-    next()
-})
-
-router.get('/', (req, res) => {
+const getQuestion = ((req,res) => {
     const openai = new OpenAIApi(configuration);
     async function runCompletion(prompt) {
         const completion = await openai.createCompletion({
@@ -27,4 +20,6 @@ router.get('/', (req, res) => {
     })
 })
 
-module.exports = router
+module.exports = {
+    getQuestion,
+}
