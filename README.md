@@ -4,7 +4,7 @@
 This project is the development of openai artificial intelligence api as a node.js api to be integrated into their projects.
 
 
-## Install
+## Manual Install
 
 ```bash
 npm i
@@ -12,6 +12,17 @@ npm i
 ```bash
 Update env.example to env.
 ```
+
+## Docker Install
+
+```bash
+docker build . -t openai-node-project
+```
+```bash
+docker run -p 8080:8080 openai-node-project
+```
+
+Visit docker hub -> [DockerHub](https://hub.docker.com/r/eyupfidan/openai-node)
 
 Sign up for an [OpenAI API key](https://platform.openai.com/overview) and store it in your environment.
 
