@@ -1,14 +1,13 @@
-
 # Openai Node.js Rest Api
 
 This project is the development of openai artificial intelligence api as a node.js api to be integrated into their projects.
-
 
 ## Manual Install
 
 ```bash
 npm i
 ```
+
 ```bash
 Update env.example to env.
 ```
@@ -18,6 +17,7 @@ Update env.example to env.
 ```bash
 docker build . -t openai-node-project
 ```
+
 ```bash
 docker run -p 8080:8080 openai-node-project
 ```
@@ -31,8 +31,9 @@ Sign up for an [OpenAI API key](https://platform.openai.com/overview) and store 
 ```bash
 npm start
 ```
+
 ```bash
-Post 'askQuestion' routes and 'requestText' value
+Post 'fetchQuestion' routes and 'requestText' value
 ```
 
 Sign up for an [OpenAI API key](https://platform.openai.com/overview) and store it in your environment.

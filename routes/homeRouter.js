@@ -1,13 +1,10 @@
-const express = require('express')
-const router = express.Router()
-const { getQuestion } = require('../controllers/homeController.js')
+const express = require("express");
+const router = express.Router();
+const { fetchQuestion } = require("../controllers/homeController.js");
+const { logTime } = require("../middlewares/status.js");
 
+router.use(logTime);
 
-router.use((req, res, next) => {
-    console.log('Time: ', Date.now())
-    next()
-})
+router.post("/", fetchQuestion);
 
-router.post('/', getQuestion)
-
-module.exports = router
+module.exports = router;

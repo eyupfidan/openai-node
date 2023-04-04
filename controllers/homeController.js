@@ -7,9 +7,8 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const getQuestion = async (req, res) => {
+const fetchQuestion = async (req, res) => {
   const { requestText } = req.query;
-
   try {
     const openai = new OpenAIApi(configuration);
 
@@ -34,5 +33,5 @@ const runCompletion = async (openai, prompt) => {
 };
 
 module.exports = {
-  getQuestion,
+  fetchQuestion,
 };
