@@ -2,13 +2,25 @@
  * express module
  * @const
  */
-const express = require("express");
+import express, { Application } from "express";
+
+/**
+ * CORS module
+ * @const
+ */
+import cors from "cors";
+
+/**
+ * Home router module
+ * @const
+ */
+import homeRouter from "./routes/homeRouter";
 
 /**
  * express application
- * @type {Object}
+ * @type {Application}
  */
-const app = express();
+const app: Application = express();
 
 /**
  * The port number on which the server will listen
@@ -16,21 +28,15 @@ const app = express();
  * @constant
  * @default
  */
-const port = 8080;
-
-/**
- * Home router module
- * @const
- */
-const homeRouter = require("./routes/homeRouter.js");
+const port: number = 8080;
 
 /**
  * Cross-Origin Resource Sharing options
- * @type {Object}
+ * @type {cors.CorsOptions}
  * @const
  * @default
  */
-const corsOptions = {
+const corsOptions: cors.CorsOptions = {
   origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
@@ -42,7 +48,7 @@ const corsOptions = {
  * @memberof app
  * @param {string} path - Route path
  * @param {Object} middleware - Middleware functions
- * @returns {Object} - Express application instance
+ * @returns {Application} - Express application instance
  */
 app.use("/fetchQuestion", homeRouter);
 
@@ -50,8 +56,8 @@ app.use("/fetchQuestion", homeRouter);
  * Middleware that handles CORS-related issues
  * @function
  * @memberof app
- * @param {Object} options - CORS options
- * @returns {Object} - Express application instance
+ * @param {cors.CorsOptions} options - CORS options
+ * @returns {Application} - Express application instance
  */
 app.use(cors(corsOptions));
 
@@ -63,4 +69,6 @@ app.use(cors(corsOptions));
  * @param {Function} callback - Function to execute once server starts listening
  * @returns {void}
  */
-app.listen(port, () => {});
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

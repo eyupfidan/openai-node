@@ -2,13 +2,15 @@
  * OpenAI module
  * @const
  */
-const { Configuration, OpenAIApi } = require("openai");
+import { Configuration, OpenAIApi } from "openai";
+import express, { Request, Response, Router } from "express";
+
 
 /**
  * dotenv module
  * @const
  */
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 
 /**
  * Loads environment variables from a .env file
@@ -18,11 +20,11 @@ dotenv.config();
 
 /**
  * Configuration object for OpenAI API
- * @type {Object}
+ * @type {Configuration}
  * @const
  * @default
  */
-const configuration = new Configuration({
+const configuration: Configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
@@ -34,13 +36,16 @@ const configuration = new Configuration({
  * @param {Object} res - Express response object
  * @returns {Object} - JSON response
  */
-const fetchQuestion = async (req, res) => {
-  const { requestText } = req.query;
+export const fetchQuestion = async (
+  req: express.Request,
+  res: express.Response
+): Promise<void> => {
+  const requestText: string = req.query.requestText as string;
 
   try {
-    const openai = new OpenAIApi(configuration);
+    const openai: OpenAIApi = new OpenAIApi(configuration);
 
-    const result = await runCompletion(openai, requestText);
+    const result: string = await runCompletion(openai, requestText);
 
     res.status(200).json(result);
   } catch (error) {
@@ -50,30 +55,26 @@ const fetchQuestion = async (req, res) => {
   }
 };
 
+
 /**
  * Runs a completion request on the OpenAI API
  * @function
  * @async
- * @param {Object} openai - OpenAI API object
+ * @param {OpenAIApi} openai - OpenAI API object
  * @param {string} prompt - Prompt for the completion request
  * @returns {string} - Completed text
  */
-const runCompletion = async (openai, prompt) => {
+const runCompletion = async (
+  openai: OpenAIApi,
+  prompt: string
+): Promise<string> => {
   const { data } = await openai.createCompletion({
     model: "text-davinci-003",
     prompt,
     max_tokens: 1000,
   });
 
-  return data.choices[0].text;
-};
+  const dataChoices : string = data.choices[0].text || '';
 
-/**
- * Module that exports the fetchQuestion middleware function
- * @module
- * @type {Object}
- * @property {Function} fetchQuestion - Middleware that handles HTTP GET requests to the "/fetchQuestion" endpoint
- */
-module.exports = {
-  fetchQuestion,
+  return dataChoices;
 };

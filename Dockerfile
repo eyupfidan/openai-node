@@ -1,20 +1,22 @@
 FROM node:18-alpine
 
+# Set the working directory
 WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package.json ./
+# Copy the package.json and package-lock.json files to the working directory
+COPY package*.json ./
 
+# Install dependencies
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
 
-# Bundle app source
+# Copy the rest of the application source code to the working directory
 COPY . .
 
+# Build the TypeScript code
+RUN npm run build
+
+# Expose the port that the application listens on
 EXPOSE 8080
 
-CMD [ "node", "app.js" ]
-
+# Start the application
+CMD ["node", "./dist/app.js"]
